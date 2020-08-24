@@ -5,7 +5,7 @@ const Card = (props) => {
   console.log(props);
   return(
     <p>
-      <input type="checkbox" checked={props.completed ? 'true' : ''}/>
+      <input type="checkbox" />
       {props.title} {props.children}
     </p>
   )
