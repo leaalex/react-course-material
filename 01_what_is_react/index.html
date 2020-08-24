@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>React JS Start</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<div id="root_1"></div>
+<div id="root_2"></div>
+<script>
+  ReactDOM.render(
+    React.createElement('div', {},
+      React.createElement('h1', {}, 'Привет, мир!'),
+      React.createElement('p', {}, 'Я абзац <p/>')
+    ),
+    document.getElementById('root_1')
+  );
+</script>
+<script type="text/babel">
+  ReactDOM.render(
+    <div><h1>Привет, мир!</h1><p>Я абзац "p"</p></div>,
+    document.getElementById('root_2')
+  );
+</script>
+</body>
+</html>
