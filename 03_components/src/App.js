@@ -12,7 +12,7 @@ class App extends Component {
     ],
     pageTitle: 'Список задач',
     buttonTitle: 'Показать/Скрыть задачи',
-    isShowTasks: false
+    isShowTasks: true
   }
   buttonClick = () => {
     this.setState({
@@ -26,6 +26,13 @@ class App extends Component {
       cards: newCards
     })
     console.log(this.state.cards)
+  }
+
+  changeInput = (event) => {
+    console.log(this)
+    this.setState({
+      pageTitle: event.target.value
+    })
   }
 
   render() {
@@ -43,11 +50,21 @@ class App extends Component {
           )
 
     return (
-      <div>
-        <h1>{ pageTitle }</h1>
+      <>
+        <h1>{ this.props.globalTitle }</h1>
+        <h3>{ pageTitle }</h3>
         <button onClick={this.buttonClick}>{buttonTitle}</button>
-        { isShowTasks && cards }
-      </div>
+        {
+          isShowTasks &&
+          <div>
+            <input type="text" value={pageTitle} onChange={this.changeInput}/>
+            <button onClick={this.addTask}>Добавить задачу</button>
+            <div>
+              {cards}
+            </div>
+          </div>
+        }
+      </>
     )
   }
 }

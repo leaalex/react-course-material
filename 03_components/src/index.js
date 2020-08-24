@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 
 ReactDOM.render(
-    <App />,
+    <App globalTitle={'React Task Manager'} />,
   document.getElementById('root')
 );
 
