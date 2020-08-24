@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+// component
+import Card from "./components/Card";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const hi = 'Привет, мир!!!'
+const Upper = (text) => text.toUpperCase()
+
+
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <h1>{ Upper(hi + ' Меня зовут Алексей!') }</h1>
+        <Card title={'Прочитать про React'} completed={true}/>
+        <Card title={'Сходить за хлебом'} completed={false}/>
+        <Card title={'Помыть машину'} completed={true}>
+          <br/>
+          <span>Адрес мойки: Мира 19</span>
+          <span>Адрес мойки: Мира 19</span>
+        </Card>
+      </div>
+    )
+  }
 }
 
 export default App;
