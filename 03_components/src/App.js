@@ -19,10 +19,29 @@ class App extends Component {
       isShowTasks: !this.state.isShowTasks
     })
   }
+  changeTaskCompleted = (index) => {
+    const newCards = [...this.state.cards]
+    newCards[index].completed = !this.state.cards[index].completed
+    this.setState({
+      cards: newCards
+    })
+    console.log(this.state.cards)
+  }
 
   render() {
     let {cards, pageTitle, buttonTitle, isShowTasks} = this.state
-    cards = cards.map((card, index) => <Card key={index} title={card.title} completed={card.completed}/> )
+    cards = cards.map(
+      (card, index) =>
+        <Card
+          key={index}
+          title={card.title}
+          completed={card.completed}
+          onClick={() => this.changeTaskCompleted(index)}
+        >
+          {/*<button onClick={this.changeTaskCompleted.bind(this, index)}>click</button>*/}
+        </Card>
+          )
+
     return (
       <div>
         <h1>{ pageTitle }</h1>
