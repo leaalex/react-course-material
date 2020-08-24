@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 // component
 import Card from "./components/Card";
+import AddTask from "./components/AddTask";
+
 
 class App extends Component {
   state = {
@@ -14,6 +16,8 @@ class App extends Component {
     buttonTitle: 'Показать/Скрыть задачи',
     isShowTasks: true
   }
+
+
   buttonClick = () => {
     this.setState({
       isShowTasks: !this.state.isShowTasks
@@ -29,9 +33,12 @@ class App extends Component {
   }
 
   changeInput = (event) => {
-    console.log(this)
+    this.input = event.target.value
+  }
+
+  addTask = () => {
     this.setState({
-      pageTitle: event.target.value
+      cards: [...this.state.cards, {title: this.input, completed:false}]
     })
   }
 
@@ -57,8 +64,10 @@ class App extends Component {
         {
           isShowTasks &&
           <div>
-            <input type="text" value={pageTitle} onChange={this.changeInput}/>
-            <button onClick={this.addTask}>Добавить задачу</button>
+            <AddTask
+              onChangeInput={this.changeInput}
+              onClickButton={this.addTask}
+            />
             <div>
               {cards}
             </div>
