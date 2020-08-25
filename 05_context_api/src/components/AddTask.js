@@ -31,7 +31,7 @@ const AddTask = (props) => {
                 value =>{
                  console.log('Context',value)
                  return(
-                   <button onClick={submit} className={`btn btn-outline-${value}`} type="button">
+                   <button onClick={submit} className={`btn btn-outline-${value.color}`} type="button">
                      Добавить задачу
                    </button>
                  )
