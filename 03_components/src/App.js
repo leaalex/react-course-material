@@ -4,36 +4,46 @@ import './App.css';
 import Card from "./components/Card";
 import AddTask from "./components/AddTask";
 
+//utils
+import { genId } from "./utils/index"
+
+
+
 
 class App extends Component {
   state = {
     cards: [
-      {title:'Прочитать про React', completed:true},
-      {title:'Сходить за хлебом', completed:false},
-      {title:'Помыть машину', completed:true},
+      {id: 'id_474a890', title:'Прочитать про React', completed:true, delete: false},
+      {id: 'id_474a8b0', title:'Сходить за хлебом', completed:false, delete: false},
+      {id: 'id_474a89e', title:'Помыть машину', completed:true, delete: false},
     ],
     pageTitle: 'Список задач',
-    buttonTitle: 'Показать/Скрыть задачи',
-    isShowTasks: true
+    isShowDeleteTasks: false
   }
-
 
   buttonClick = () => {
     this.setState({
-      isShowTasks: !this.state.isShowTasks
+      isShowDeleteTasks: !this.state.isShowDeleteTasks
     })
   }
-  changeTaskCompleted = (index) => {
-    const newCards = [...this.state.cards]
-    newCards[index].completed = !this.state.cards[index].completed
+  changeTaskCompleted = (id) => {
+    let newCards = [...this.state.cards]
+    newCards = newCards.map(card => {return {...card}})
+    const card = newCards.find(card => card.id === id )
+    card.completed = !card.completed
     this.setState({
       cards: newCards
     })
-    console.log(this.state.cards)
   }
 
-  deleteTask =(index) => {
-    console.log('Удалить', this.state.cards[index])
+  deleteTask =(id) => {
+    let newCards = [...this.state.cards]
+    newCards = newCards.map(card => {return {...card}})
+    const card = newCards.find(card => card.id === id )
+    card.delete = !card.delete
+    this.setState({
+      cards: newCards
+    })
   }
 
   changeInput = (event) => {
@@ -42,20 +52,23 @@ class App extends Component {
 
   addTask = () => {
     this.setState({
-      cards: [{title: this.input, completed:false}, ...this.state.cards,]
+      cards: [{id: genId(), title: this.input, completed:false}, ...this.state.cards,]
     })
   }
 
   render() {
-    let {cards, pageTitle, buttonTitle, isShowTasks} = this.state
-    cards = cards.map(
+    console.log(genId())
+    let {cards, pageTitle, buttonTitle, isShowDeleteTasks} = this.state
+    cards = cards.filter(card => isShowDeleteTasks || !card.delete)
+      .map(
       (card, index) =>
         <Card
-          key={index}
+          key={card.id}
           title={card.title}
           completed={card.completed}
-          onChangeСheckbox={() => this.changeTaskCompleted(index)}
-          onDelete={()=>this.deleteTask(index)}
+          delete={card.delete}
+          onChangeСheckbox={() => this.changeTaskCompleted(card.id)}
+          onDelete={()=>this.deleteTask(card.id)}
         >
           {/*<button onClick={this.changeTaskCompleted.bind(this, index)}>click</button>*/}
         </Card>
@@ -64,10 +77,11 @@ class App extends Component {
     return (
       <>
         <h1>{ this.props.globalTitle }</h1>
-        <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>{buttonTitle}</button>
+        <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>
+          {isShowDeleteTasks? 'Скрыть удаленные задачи': 'Показать удаленные задачи'}
+        </button>
         <h3>{ pageTitle } </h3>
-        {
-          isShowTasks &&
+
           <div className={'mt-4'}>
             <AddTask
               onChangeInput={this.changeInput}
@@ -77,7 +91,7 @@ class App extends Component {
               {cards}
             </div>
           </div>
-        }
+
       </>
     )
   }
