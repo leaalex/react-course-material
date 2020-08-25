@@ -4,39 +4,36 @@ import {Actions} from "../App";
 
 const inputRef = React.createRef()
 
-const AddTask = (props) => {
+const AddTask = () => {
 
-  const submit = (event) => {
+  const submit = (event , action) => {
     const isSubmit = event.type === 'click'
       || event.type === 'keypress' && event.key === 'Enter'
     if (isSubmit){
-      props.onClickButton()
+      action()
       inputRef.current.value = ''
     }
 
   }
   return (
-    <>
+    <Actions.Consumer>
+      {value => (
       <div className="input-group mb-3">
         <input
           ref={inputRef}
           placeholder='Новая задача'
-          onChange={props.onChangeInput}
-          onKeyPress={submit} type="text"
+          onChange={value.changeInput}
+          onKeyPress={(event)=> submit(event, value.addTask )} type="text"
           className="form-control"
         />
           <div className="input-group-append">
-              <Actions.Consumer>
-                {value => (
-                  <button onClick={submit} className={`btn btn-outline-${value.color}`} type="button">
-                    Добавить задачу
-                  </button>
-                )
-                }
-              </Actions.Consumer>
+            <button onClick={(event)=> submit(event, value.addTask )} className={`btn btn-outline-${value.color}`} type="button">
+              Добавить задачу
+            </button>
           </div>
-      </div>
-    </>
+      </div>)
+      }
+    </Actions.Consumer>
   )
 }
 

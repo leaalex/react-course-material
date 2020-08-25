@@ -1,5 +1,6 @@
 import React from "react";
 import './Card.scss'
+import CardCheckbox from "./CardCheckbox";
 
 
 
@@ -22,14 +23,12 @@ const Card = (props) => {
 
   const classes = {
     input: props.delete? 'border-danger' : '',
-    checkbox:  props.delete? 'border-danger bg-danger' : ''
+
   }
   return(
     <div className="input-group mb-3">
       <div className="input-group-prepend" >
-        <div className={`input-group-text ${classes.checkbox}`}>
-          <input type="checkbox" onChange={props.onChangeСheckbox} checked={props.completed} />
-        </div>
+        <CardCheckbox {...props}/>
       </div>
       <input ref={inputRef}
              type="text"
