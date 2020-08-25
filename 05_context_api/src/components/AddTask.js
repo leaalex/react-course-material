@@ -26,17 +26,14 @@ const AddTask = (props) => {
           className="form-control"
         />
           <div className="input-group-append">
-            {
-              React.createElement(Actions.Consumer, {},
-                value =>{
-                 console.log('Context',value)
-                 return(
-                   <button onClick={submit} className={`btn btn-outline-${value.color}`} type="button">
-                     Добавить задачу
-                   </button>
-                 )
+              <Actions.Consumer>
+                {value => (
+                  <button onClick={submit} className={`btn btn-outline-${value.color}`} type="button">
+                    Добавить задачу
+                  </button>
+                )
                 }
-              )}
+              </Actions.Consumer>
           </div>
       </div>
     </>

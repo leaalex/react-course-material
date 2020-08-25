@@ -23,7 +23,7 @@ class App extends Component {
       globalTitle: props.globalTitle,
       pageTitle: 'Список задач',
       isShowDeleteTasks: false,
-      color: 'primary'
+      color: 'secondary'
     }
     this.buttonClick = this.buttonClick.bind(this)
   }
