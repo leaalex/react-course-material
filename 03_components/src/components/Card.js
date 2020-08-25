@@ -11,6 +11,14 @@ const Card = (props) => {
         </div>
       </div>
       <input type="text" value={props.title} className="form-control" />
+      <div className="input-group-append">
+        <button
+          className="btn btn-outline-danger"
+          type="button"
+        >
+          Удалить
+        </button>
+      </div>
     </div>
   )
 }

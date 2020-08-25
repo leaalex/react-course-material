@@ -38,7 +38,7 @@ class App extends Component {
 
   addTask = () => {
     this.setState({
-      cards: [...this.state.cards, {title: this.input, completed:false}]
+      cards: [{title: this.input, completed:false}, ...this.state.cards,]
     })
   }
 
@@ -59,8 +59,8 @@ class App extends Component {
     return (
       <>
         <h1>{ this.props.globalTitle }</h1>
-        <h3>{ pageTitle } <button className='btn btn-primary' onClick={this.buttonClick}>{buttonTitle}</button></h3>
-
+        <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>{buttonTitle}</button>
+        <h3>{ pageTitle } </h3>
         {
           isShowTasks &&
           <div className={'mt-4'}>
