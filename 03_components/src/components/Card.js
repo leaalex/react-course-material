@@ -1,13 +1,29 @@
 import React from "react";
 import './Card.scss'
 
+
+
 const Card = (props) => {
+  const inputRef = React.createRef()
+  let isEdited = false
+  const editInput = (input, button) => {
+    console.log(button)
+    if(isEdited) {
+      input.setAttribute('disabled', '')
+      button.innerText = 'Редактировать'
+      props.inputSave()
+    }
+    else {
+      input.removeAttribute('disabled')
+      button.innerText = 'Сохранить'
+    }
+    isEdited=!isEdited
+  }
+
   const classes = {
     input: props.delete? 'border-danger' : '',
     checkbox:  props.delete? 'border-danger bg-danger' : ''
   }
-
-  console.log(props);
   return(
     <div className="input-group mb-3">
       <div className={`input-group-prepend `}>
@@ -15,13 +31,20 @@ const Card = (props) => {
           <input type="checkbox" onChange={props.onChangeСheckbox} checked={props.completed} />
         </div>
       </div>
-      <input type="text" defaultValue={props.title} onChange={props.onChangeInput} className={`form-control ${classes.input}`} disabled/>
+      <input ref={inputRef}
+             type="text"
+             defaultValue={props.title}
+             onChange={props.onChangeInput}
+             className={`form-control ${classes.input}`}
+             disabled
+      />
       <div className="input-group-append">
         {
           !props.delete &&
           <button
             className="btn btn-outline-success"
             type="button"
+            onClick={(event)=> editInput(inputRef.current, event.target)}
           >
             Редактировать
           </button>
