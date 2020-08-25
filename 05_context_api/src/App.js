@@ -7,6 +7,9 @@ import AddTask from "./components/AddTask";
 //utils
 import { genId } from "./utils/index"
 
+// Context API
+export const Color = React.createContext({})
+
 
 class App extends Component {
   constructor(props){
@@ -19,7 +22,8 @@ class App extends Component {
       ],
       globalTitle: props.globalTitle,
       pageTitle: 'Список задач',
-      isShowDeleteTasks: false
+      isShowDeleteTasks: false,
+      color: 'primary'
     }
     this.buttonClick = this.buttonClick.bind(this)
   }
@@ -103,23 +107,24 @@ class App extends Component {
           )
     return (
       <>
-        <h1>{ globalTitle }</h1>
-        <button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards)}>log</button>
-        <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>
-          {isShowDeleteTasks? 'Скрыть удаленные задачи': 'Показать удаленные задачи'}
-        </button>
-        <h3>{ pageTitle } </h3>
+        <Color.Provider value={this.state}>
+          <h1>{ globalTitle }</h1>
+          <button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards)}>log</button>
+          <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>
+            {isShowDeleteTasks? 'Скрыть удаленные задачи': 'Показать удаленные задачи'}
+          </button>
+          <h3>{ pageTitle } </h3>
 
-          <div className={'mt-4'}>
-            <AddTask
-              onChangeInput={this.changeInput}
-              onClickButton={this.addTask}
-            />
-            <div>
-              {cards}
+            <div className={'mt-4'}>
+              <AddTask
+                onChangeInput={this.changeInput}
+                onClickButton={this.addTask}
+              />
+              <div>
+                {cards}
+              </div>
             </div>
-          </div>
-
+        </Color.Provider>
       </>
     )
   }

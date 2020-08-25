@@ -1,4 +1,6 @@
 import React from "react";
+// Context API
+import {Color} from "../App";
 
 const inputRef = React.createRef()
 
@@ -24,13 +26,17 @@ const AddTask = (props) => {
           className="form-control"
         />
           <div className="input-group-append">
-            <button
-              onClick={submit}
-              className="btn btn-outline-primary"
-              type="button"
-            >
-              Добавить задачу
-            </button>
+            {
+              React.createElement(Color.Consumer, {},
+                value =>{
+                 console.log('Context',value)
+                 return(
+                   <button onClick={submit} className={`btn btn-outline-${value}`} type="button">
+                     Добавить задачу
+                   </button>
+                 )
+                }
+              )}
           </div>
       </div>
     </>
