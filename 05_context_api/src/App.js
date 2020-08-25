@@ -106,7 +106,6 @@ class App extends Component {
         </Card>
           )
     return (
-      <>
         <Actions.Provider value={this.state}>
           <h1>{ globalTitle }</h1>
           <button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards)}>log</button>
@@ -116,16 +115,12 @@ class App extends Component {
           <h3>{ pageTitle } </h3>
 
             <div className={'mt-4'}>
-              <AddTask
-                onChangeInput={this.changeInput}
-                onClickButton={this.addTask}
-              />
+              <AddTask/>
               <div>
                 {cards}
               </div>
             </div>
         </Actions.Provider>
-      </>
     )
   }
 }
