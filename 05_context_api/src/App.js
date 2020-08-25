@@ -8,7 +8,7 @@ import AddTask from "./components/AddTask";
 import { genId } from "./utils/index"
 
 // Context API
-export const Color = React.createContext({})
+export const Actions = React.createContext({})
 
 
 class App extends Component {
@@ -107,7 +107,7 @@ class App extends Component {
           )
     return (
       <>
-        <Color.Provider value={this.state}>
+        <Actions.Provider value={this.state}>
           <h1>{ globalTitle }</h1>
           <button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards)}>log</button>
           <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>
@@ -124,7 +124,7 @@ class App extends Component {
                 {cards}
               </div>
             </div>
-        </Color.Provider>
+        </Actions.Provider>
       </>
     )
   }

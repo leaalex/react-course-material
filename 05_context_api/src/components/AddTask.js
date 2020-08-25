@@ -1,6 +1,6 @@
 import React from "react";
 // Context API
-import {Color} from "../App";
+import {Actions} from "../App";
 
 const inputRef = React.createRef()
 
@@ -27,7 +27,7 @@ const AddTask = (props) => {
         />
           <div className="input-group-append">
             {
-              React.createElement(Color.Consumer, {},
+              React.createElement(Actions.Consumer, {},
                 value =>{
                  console.log('Context',value)
                  return(
