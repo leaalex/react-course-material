@@ -32,6 +32,10 @@ class App extends Component {
     console.log(this.state.cards)
   }
 
+  deleteTask =(index) => {
+    console.log('Удалить', this.state.cards[index])
+  }
+
   changeInput = (event) => {
     this.input = event.target.value
   }
@@ -50,7 +54,8 @@ class App extends Component {
           key={index}
           title={card.title}
           completed={card.completed}
-          onClick={() => this.changeTaskCompleted(index)}
+          onChangeСheckbox={() => this.changeTaskCompleted(index)}
+          onDelete={()=>this.deleteTask(index)}
         >
           {/*<button onClick={this.changeTaskCompleted.bind(this, index)}>click</button>*/}
         </Card>
