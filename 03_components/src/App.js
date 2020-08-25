@@ -8,8 +8,6 @@ import AddTask from "./components/AddTask";
 import { genId } from "./utils/index"
 
 
-
-
 class App extends Component {
   state = {
     cards: [
@@ -26,11 +24,22 @@ class App extends Component {
       isShowDeleteTasks: !this.state.isShowDeleteTasks
     })
   }
+
   changeTaskCompleted = (id) => {
     let newCards = [...this.state.cards]
     newCards = newCards.map(card => {return {...card}})
     const card = newCards.find(card => card.id === id )
     card.completed = !card.completed
+    this.setState({
+      cards: newCards
+    })
+  }
+
+  changeTaskInput = (id, value) => {
+    let newCards = [...this.state.cards]
+    newCards = newCards.map(card => {return {...card}})
+    const card = newCards.find(card => card.id === id )
+    card.title = value
     this.setState({
       cards: newCards
     })
@@ -46,6 +55,7 @@ class App extends Component {
     })
   }
 
+  // AddTask.js
   changeInput = (event) => {
     this.input = event.target.value
   }
@@ -57,7 +67,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(genId())
     let {cards, pageTitle, buttonTitle, isShowDeleteTasks} = this.state
     cards = cards.filter(card => isShowDeleteTasks || !card.delete)
       .map(
@@ -69,6 +78,7 @@ class App extends Component {
           delete={card.delete}
           onChangeСheckbox={() => this.changeTaskCompleted(card.id)}
           onDelete={()=>this.deleteTask(card.id)}
+          onSave={(value)=>this.changeTaskInput(card.id, value)}
         >
           {/*<button onClick={this.changeTaskCompleted.bind(this, index)}>click</button>*/}
         </Card>
@@ -77,6 +87,7 @@ class App extends Component {
     return (
       <>
         <h1>{ this.props.globalTitle }</h1>
+        <button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards)}>log</button>
         <button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>
           {isShowDeleteTasks? 'Скрыть удаленные задачи': 'Показать удаленные задачи'}
         </button>

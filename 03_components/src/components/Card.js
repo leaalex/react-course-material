@@ -11,7 +11,7 @@ const Card = (props) => {
     if(isEdited) {
       input.setAttribute('disabled', '')
       button.innerText = 'Редактировать'
-      props.inputSave()
+      props.onSave(inputRef.current.value)
     }
     else {
       input.removeAttribute('disabled')
