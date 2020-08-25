@@ -16,9 +16,9 @@ class App extends Component {
     super()
     this.state = {
       cards: [
-        {id: 'id_474a890', title:'Прочитать про React', completed:true, delete: false},
-        {id: 'id_474a8b0', title:'Сходить за хлебом', completed:false, delete: false},
-        {id: 'id_474a89e', title:'Помыть машину', completed:true, delete: false},
+        {id: 'id_474a890', title:'Прочитать про React', completed:true, deleted: false},
+        {id: 'id_474a8b0', title:'Сходить за хлебом', completed:false, deleted: false},
+        {id: 'id_474a89e', title:'Помыть машину', completed:true, deleted: false},
       ],
       globalTitle: props.globalTitle,
       pageTitle: 'Список задач',
@@ -63,7 +63,7 @@ class App extends Component {
     let newCards = [...this.state.cards]
     newCards = newCards.map(card => {return {...card}})
     const card = newCards.find(card => card.id === id )
-    card.delete = !card.delete
+    card.deleted = !card.deleted
     this.setState({
       cards: newCards
     })
@@ -76,7 +76,7 @@ class App extends Component {
 
   addTask = () => {
     this.setState({
-      cards: [{id: genId(), title: this.input, completed:false}, ...this.state.cards,]
+      cards: [{id: genId(), title: this.input, completed:false, deleted: false}, ...this.state.cards,]
     })
   }
 
@@ -87,7 +87,7 @@ class App extends Component {
       return {...object, ...cardTemp} }, {})
 
 
-    cards = cards.filter(card => isShowDeleteTasks || !card.delete)
+    cards = cards.filter(card => isShowDeleteTasks || !card.deleted)
       .map(
       (card, index) =>
         <Card
@@ -95,7 +95,7 @@ class App extends Component {
           key={card.id}
           title={card.title}
           completed={card.completed}
-          delete={card.delete}
+          deleted={card.deleted}
           onChangeСheckbox={() => this.changeTaskCompleted(card.id)}
           onDelete={()=>this.deleteTask(card.id)}
           onSave={(value)=>this.changeTaskInput(card.id, value)}

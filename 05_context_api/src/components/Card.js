@@ -22,7 +22,7 @@ const Card = (props) => {
   }
 
   const classes = {
-    input: props.delete? 'border-danger' : '',
+    input: props.deleted? 'border-danger' : '',
 
   }
   return(
@@ -38,7 +38,7 @@ const Card = (props) => {
       />
       <div className="input-group-append">
         {
-          !props.delete &&
+          !props.deleted &&
           <button
             className="btn btn-outline-success"
             type="button"
@@ -53,7 +53,7 @@ const Card = (props) => {
           className="btn btn-outline-danger"
           type="button"
         >
-          {!props.delete? 'Удалить': 'Вернуть'}
+          {!props.deleted? 'Удалить': 'Вернуть'}
         </button>
       </div>
     </div>
