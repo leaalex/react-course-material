@@ -5,7 +5,8 @@ const inputRef = React.createRef()
 const AddTask = (props) => {
 
   const submit = (event) => {
-    const isSubmit = event.type === 'click' || event.type === 'keypress' && event.key === 'Enter'
+    const isSubmit = event.type === 'click'
+      || event.type === 'keypress' && event.key === 'Enter'
     if (isSubmit){
       props.onClickButton()
       inputRef.current.value = ''
@@ -14,14 +15,24 @@ const AddTask = (props) => {
   }
   return (
     <>
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder='Новая задача'
-        onChange={props.onChangeInput}
-        onKeyPress={submit}
-      />
-      <button onClick={submit}>Добавить задачу</button>
+      <div className="input-group mb-3">
+        <input
+          ref={inputRef}
+          placeholder='Новая задача'
+          onChange={props.onChangeInput}
+          onKeyPress={submit} type="text"
+          className="form-control"
+        />
+          <div className="input-group-append">
+            <button
+              onClick={submit}
+              className="btn btn-outline-primary"
+              type="button"
+            >
+              Добавить задачу
+            </button>
+          </div>
+      </div>
     </>
   )
 }

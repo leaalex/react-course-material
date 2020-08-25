@@ -59,11 +59,11 @@ class App extends Component {
     return (
       <>
         <h1>{ this.props.globalTitle }</h1>
-        <h3>{ pageTitle }</h3>
-        <button onClick={this.buttonClick}>{buttonTitle}</button>
+        <h3>{ pageTitle } <button className='btn btn-primary' onClick={this.buttonClick}>{buttonTitle}</button></h3>
+
         {
           isShowTasks &&
-          <div>
+          <div className={'mt-4'}>
             <AddTask
               onChangeInput={this.changeInput}
               onClickButton={this.addTask}
