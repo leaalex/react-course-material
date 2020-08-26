@@ -2,11 +2,14 @@ import React from "react";
 import './Card.scss'
 import CardCheckbox from "./CardCheckbox";
 
+import {withRouter} from "react-router-dom"
+
 import {ActionsCards} from "../../App";
 
 
 
-const Card = ({id}) => {
+const Card = (props) => {
+  const id = props.id
   const inputRef = React.createRef()
   let isEdited = false
   const editInput = (button, save) => {
@@ -39,6 +42,13 @@ const Card = ({id}) => {
                    disabled
             />
             <div className="input-group-append">
+              <button
+                className="btn btn-outline-success"
+                type="button"
+                onClick={() => props.history.push(`/tasks/${id}`)}
+              >
+                Инфо
+              </button>
               {
                 !cardsObject[id].deleted &&
                 <button
@@ -65,4 +75,4 @@ const Card = ({id}) => {
   )
 }
 
-export default Card
+export default withRouter(Card)

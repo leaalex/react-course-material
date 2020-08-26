@@ -7,7 +7,7 @@ import HomePage from "./pages/HomePage";
 import TasksPage from "./pages/TasksPage";
 
 // component
-import Card from "./components/Card/Card";
+import CardDetails from "./components/Card/CardDetails";
 import AddTask from "./components/AddTask";
 
 // hoc
@@ -116,13 +116,13 @@ class App extends Component {
           </ul>
         <Actions.Provider value={{color: this.state.color,changeInput: this.changeInput,addTask: this.addTask}}>
           <ActionsCards.Provider value={CardsData}>
-            <Switch>
+
               <Route path='/' exact render={() => <HomePage title={ globalTitle } />}/>
               <Route path='/about' component={AboutPage}/>
               <Route path='/tasks/' render={()=> <TasksPage cards={cards} isShowDeleteTasks={isShowDeleteTasks} buttonClick={this.buttonClick}/>}/>
-              <Route path='/tasks/:taskid' component={TasksPage}/>
-              <Route render={() => <h1>404</h1>}/>
-            </Switch>
+              <Route path='/tasks/:taskid' component={CardDetails}/>
+            {/*<Route render={() => <h1>404</h1>}/>*/}
+
           </ActionsCards.Provider>
         </Actions.Provider>
       </Container>
