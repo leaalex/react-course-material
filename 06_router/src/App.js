@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import './App.css';
 // pages
 import AboutPage from "./pages/AboutPage";
@@ -111,18 +111,17 @@ class App extends Component {
         <Actions.Provider value={{color: this.state.color,changeInput: this.changeInput,addTask: this.addTask}}>
           <ul className="nav justify-content-center">
             <li className="nav-item">
-              <a className="nav-link active" href="#">Active</a>
+              <NavLink className="nav-link" exact to={{pathname: '/', search: '?a=1&b=2', hash: 'abcd'}}>Home</NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
+              <NavLink className="nav-link" activeClassName={'abc-active'} to="/tasks">Tasks</NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Link</a>
+              <NavLink className="nav-link" activeStyle={{color: 'gold'}} to="/about">About</NavLink>
             </li>
           </ul>
-          <h1>{ globalTitle }</h1>
 
-          <Route path='/' component={HomePage}/>
+          <Route path='/' exact render={() => <HomePage title={ globalTitle } />}/>
           <Route path='/about' component={AboutPage}/>
           <Route path='/tasks' component={TasksPage}/>
 
