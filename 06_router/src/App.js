@@ -10,6 +10,9 @@ import TasksPage from "./pages/TasksPage";
 import Card from "./components/Card/Card";
 import AddTask from "./components/AddTask";
 
+// hoc
+import Container from "./hoc/Container";
+
 //utils
 import { genId } from "./utils/index"
 
@@ -82,18 +85,10 @@ class App extends Component {
   }
 
   render() {
-    let {cards, pageTitle, isShowDeleteTasks, globalTitle} = this.state
+    let {cards, isShowDeleteTasks, globalTitle} = this.state
     const cardsObject = cards.reduce((object, card) => {const cardTemp ={}
       cardTemp[card.id] = card
       return {...object, ...cardTemp} }, {})
-
-
-    cards = cards.filter(card => isShowDeleteTasks || !card.deleted)
-      .map(
-      card => <Card
-          id={card.id}
-          key={card.id}
-        />)
     const CardsData = {
       cardsObject,
       changeTaskCompleted: this.changeTaskCompleted,
@@ -103,10 +98,10 @@ class App extends Component {
     }
 
     return (
-        <Actions.Provider value={{color: this.state.color,changeInput: this.changeInput,addTask: this.addTask}}>
+      <Container>
           <ul className="nav justify-content-center">
             <li className="nav-item">
-              <NavLink className="nav-link" exact to={{pathname: '/', search: '?a=1&b=2', hash: 'abcd'}}>Home</NavLink>
+              <NavLink className="nav-link" exact to= '/'>Home</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" activeClassName={'abc-active'} to="/tasks">Tasks</NavLink>
@@ -114,32 +109,22 @@ class App extends Component {
             <li className="nav-item">
               <NavLink className="nav-link" activeStyle={{color: 'gold'}} to="/about">About</NavLink>
             </li>
+            <li className="nav-item">
+              <button className='btn btn-secondary' style={{float: 'right'}} onClick={()=>console.log(this.state.cards, this.cardsObjct)}>log</button>
+            </li>
           </ul>
-          <Switch>
-            <Route path='/' exact render={() => <HomePage title={ globalTitle } />}/>
-            <Route path='/about' component={AboutPage}/>
-            <Route path='/tasks/' component={TasksPage}/>
-            <Route path='/tasks/:taskid' component={TasksPage}/>
-            <Route render={() => <h1>404</h1>}/>
-          </Switch>
-
-
-          {/*<button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards, this.cardsObjct)}>log</button>*/}
-          {/*<button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>*/}
-          {/*  {isShowDeleteTasks? 'Скрыть удаленные задачи': 'Показать удаленные задачи'}*/}
-          {/*</button>*/}
-          {/*<h3>{ pageTitle } </h3>*/}
-
-          {/*  <div className={'mt-4'}>*/}
-          {/*    <AddTask/>*/}
-          {/*    <div>*/}
-          {/*      <ActionsCards.Provider value={CardsData}>*/}
-          {/*      {cards}*/}
-          {/*      </ActionsCards.Provider>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-
+        <Actions.Provider value={{color: this.state.color,changeInput: this.changeInput,addTask: this.addTask}}>
+          <ActionsCards.Provider value={CardsData}>
+            <Switch>
+              <Route path='/' exact render={() => <HomePage title={ globalTitle } />}/>
+              <Route path='/about' component={AboutPage}/>
+              <Route path='/tasks/' render={()=> <TasksPage cards={cards} isShowDeleteTasks={isShowDeleteTasks} buttonClick={this.buttonClick}/>}/>
+              <Route path='/tasks/:taskid' component={TasksPage}/>
+              <Route render={() => <h1>404</h1>}/>
+            </Switch>
+          </ActionsCards.Provider>
         </Actions.Provider>
+      </Container>
     )
   }
 }
