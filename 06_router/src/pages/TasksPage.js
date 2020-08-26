@@ -19,7 +19,7 @@ const TasksPage = (props) => {
       </button>
       <h3>Список задач</h3>
       <div className={'mt-4'}>
-      <AddTask/>
+      <AddTask x={1}/>
       <div>
           {cards}
       </div>

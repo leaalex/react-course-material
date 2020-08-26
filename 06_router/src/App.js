@@ -12,6 +12,7 @@ import AddTask from "./components/AddTask";
 
 // hoc
 import Container from "./hoc/Container";
+import addClass from "./hoc/addClass";
 
 //utils
 import { genId } from "./utils/index"
@@ -129,4 +130,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App

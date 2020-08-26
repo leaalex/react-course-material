@@ -2,10 +2,12 @@ import React from "react";
 // Context API
 import {Actions} from "../App";
 
+import addClass from "../hoc/addClass";
+
 const inputRef = React.createRef()
 
-const AddTask = () => {
-
+const AddTask = (props) => {
+  console.log(props)
   const submit = (event , action) => {
     const isSubmit = event.type === 'click'
       || event.type === 'keypress' && event.key === 'Enter'
@@ -37,7 +39,4 @@ const AddTask = () => {
   )
 }
 
-export default AddTask
-
-// <input type="text" onChange={this.changeInput}/>
-// <button onClick={this.addTask}>Добавить задачу</button>
+export default addClass(AddTask, 'm-5')
