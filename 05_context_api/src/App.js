@@ -89,8 +89,7 @@ class App extends Component {
 
     cards = cards.filter(card => isShowDeleteTasks || !card.deleted)
       .map(
-      (card, index) =>
-        <Card
+      card => <Card
           id={card.id}
           key={card.id}
           title={card.title}
@@ -99,10 +98,12 @@ class App extends Component {
           onChangeСheckbox={() => this.changeTaskCompleted(card.id)}
           onDelete={()=>this.deleteTask(card.id)}
           onSave={(value)=>this.changeTaskInput(card.id, value)}
-        >
-          {/*<button onClick={this.changeTaskCompleted.bind(this, index)}>click</button>*/}
-        </Card>
-          )
+        />)
+    const CardsData = {
+      cardsObject,
+      changeTaskCompleted: this.changeTaskCompleted
+    }
+
     return (
         <Actions.Provider value={{color: this.state.color,changeInput: this.changeInput,addTask: this.addTask}}>
           <h1>{ globalTitle }</h1>
@@ -115,7 +116,7 @@ class App extends Component {
             <div className={'mt-4'}>
               <AddTask/>
               <div>
-                <ActionsCheckbox.Provider value={{cardsObject, changeTaskCompleted: this.changeTaskCompleted}}>
+                <ActionsCheckbox.Provider value={CardsData}>
                 {cards}
                 </ActionsCheckbox.Provider>
               </div>

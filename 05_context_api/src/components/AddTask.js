@@ -17,7 +17,7 @@ const AddTask = () => {
   }
   return (
     <Actions.Consumer>
-      {value => (
+      { value => (
       <div className="input-group mb-3">
         <input
           ref={inputRef}
