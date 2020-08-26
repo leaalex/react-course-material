@@ -2,61 +2,66 @@ import React from "react";
 import './Card.scss'
 import CardCheckbox from "./CardCheckbox";
 
+import {ActionsCards} from "../App";
 
 
-const Card = (props) => {
+
+const Card = ({id}) => {
   const inputRef = React.createRef()
   let isEdited = false
-  const editInput = (input, button) => {
-    console.log(button)
+  const editInput = (button, save) => {
     if(isEdited) {
-      input.setAttribute('disabled', '')
+      inputRef.current.setAttribute('disabled', '')
       button.innerText = 'Редактировать'
-      props.onSave(inputRef.current.value)
+      save(inputRef.current.value)
     }
     else {
-      input.removeAttribute('disabled')
+      inputRef.current.removeAttribute('disabled')
       button.innerText = 'Сохранить'
     }
     isEdited=!isEdited
   }
 
-  const classes = {
-    input: props.deleted? 'border-danger' : '',
+  const inputClass = (value) => {return value? 'border-danger' : ''}
 
-  }
-  return(
-    <div className="input-group mb-3">
-      <div className="input-group-prepend" >
-        <CardCheckbox {...props}/>
-      </div>
-      <input ref={inputRef}
-             type="text"
-             defaultValue={props.title}
-             className={`form-control ${classes.input}`}
-             disabled
-      />
-      <div className="input-group-append">
-        {
-          !props.deleted &&
-          <button
-            className="btn btn-outline-success"
-            type="button"
-            onClick={(event)=> editInput(inputRef.current, event.target)}
-          >
-            Редактировать
-          </button>
+  return (
+    <ActionsCards.Consumer>
+      {
+        ({cardsObject, onDelete, onSave}) => {
+          return (<div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <CardCheckbox id={id}/>
+            </div>
+            <input ref={inputRef}
+                   type="text"
+                   defaultValue={cardsObject[id].title}
+                   className={`form-control ${inputClass(cardsObject[id].deleted)}`}
+                   disabled
+            />
+            <div className="input-group-append">
+              {
+                !cardsObject[id].deleted &&
+                <button
+                  className="btn btn-outline-success"
+                  type="button"
+                  onClick={(event) => editInput(event.target, onSave)}
+                >
+                  Редактировать
+                </button>
+              }
+
+              <button
+                onClick={() => onDelete(id)}
+                className="btn btn-outline-danger"
+                type="button"
+              >
+                {!cardsObject[id].deleted ? 'Удалить' : 'Вернуть'}
+              </button>
+            </div>
+          </div>)
         }
-
-        <button
-          onClick={props.onDelete}
-          className="btn btn-outline-danger"
-          type="button"
-        >
-          {!props.deleted? 'Удалить': 'Вернуть'}
-        </button>
-      </div>
-    </div>
+      }
+      </ActionsCards.Consumer>
   )
 }
 

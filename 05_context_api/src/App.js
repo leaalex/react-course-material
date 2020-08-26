@@ -9,7 +9,7 @@ import { genId } from "./utils/index"
 
 // Context API
 export const Actions = React.createContext({})
-export const ActionsCheckbox = React.createContext({})
+export const ActionsCards = React.createContext({})
 
 class App extends Component {
   constructor(props){
@@ -92,16 +92,13 @@ class App extends Component {
       card => <Card
           id={card.id}
           key={card.id}
-          title={card.title}
-          completed={card.completed}
-          deleted={card.deleted}
-          onChangeСheckbox={() => this.changeTaskCompleted(card.id)}
-          onDelete={()=>this.deleteTask(card.id)}
-          onSave={(value)=>this.changeTaskInput(card.id, value)}
         />)
     const CardsData = {
       cardsObject,
-      changeTaskCompleted: this.changeTaskCompleted
+      changeTaskCompleted: this.changeTaskCompleted,
+      onChangeCheckbox :this.changeTaskCompleted,
+      onDelete: this.deleteTask,
+      onSave: this.changeTaskInput,
     }
 
     return (
@@ -116,9 +113,9 @@ class App extends Component {
             <div className={'mt-4'}>
               <AddTask/>
               <div>
-                <ActionsCheckbox.Provider value={CardsData}>
+                <ActionsCards.Provider value={CardsData}>
                 {cards}
-                </ActionsCheckbox.Provider>
+                </ActionsCards.Provider>
               </div>
             </div>
         </Actions.Provider>

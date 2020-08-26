@@ -1,12 +1,12 @@
 import React from "react";
-import {ActionsCheckbox} from "../App";
+import {ActionsCards} from "../App";
 
 const CardCheckbox = ({id}) =>{
 
    const getClass = (value) => value ? 'border-danger bg-danger' : ''
 
   return (
-    <ActionsCheckbox.Consumer>
+    <ActionsCards.Consumer>
       {
         ({cardsObject, changeTaskCompleted}) => {
           const {completed, deleted } = cardsObject[id]
@@ -16,7 +16,7 @@ const CardCheckbox = ({id}) =>{
           </div>)
         }
       }
-    </ActionsCheckbox.Consumer>
+    </ActionsCards.Consumer>
 
   )
 
