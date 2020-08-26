@@ -2,7 +2,7 @@ import React from "react";
 import './Card.scss'
 import CardCheckbox from "./CardCheckbox";
 
-import {ActionsCards} from "../App";
+import {ActionsCards} from "../../App";
 
 
 

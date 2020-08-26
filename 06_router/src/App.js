@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, Switch } from "react-router-dom";
 import './App.css';
 // pages
 import AboutPage from "./pages/AboutPage";
@@ -7,7 +7,7 @@ import HomePage from "./pages/HomePage";
 import TasksPage from "./pages/TasksPage";
 
 // component
-import Card from "./components/Card";
+import Card from "./components/Card/Card";
 import AddTask from "./components/AddTask";
 
 //utils
@@ -34,11 +34,6 @@ class App extends Component {
 
     this.buttonClick = this.buttonClick.bind(this)
   }
-
-
-
-
-
   buttonClick(){
     this.setState({
       isShowDeleteTasks: !this.state.isShowDeleteTasks
@@ -120,10 +115,14 @@ class App extends Component {
               <NavLink className="nav-link" activeStyle={{color: 'gold'}} to="/about">About</NavLink>
             </li>
           </ul>
+          <Switch>
+            <Route path='/' exact render={() => <HomePage title={ globalTitle } />}/>
+            <Route path='/about' component={AboutPage}/>
+            <Route path='/tasks/' component={TasksPage}/>
+            <Route path='/tasks/:taskid' component={TasksPage}/>
+            <Route render={() => <h1>404</h1>}/>
+          </Switch>
 
-          <Route path='/' exact render={() => <HomePage title={ globalTitle } />}/>
-          <Route path='/about' component={AboutPage}/>
-          <Route path='/tasks' component={TasksPage}/>
 
           {/*<button className='btn' style={{float: 'right'}} onClick={()=>console.log(this.state.cards, this.cardsObjct)}>log</button>*/}
           {/*<button className='btn btn-primary' style={{float: 'right'}} onClick={this.buttonClick}>*/}

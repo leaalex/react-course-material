@@ -1,5 +1,5 @@
 import React from "react";
-import {ActionsCards} from "../App";
+import {ActionsCards} from "../../App";
 
 const CardCheckbox = ({id}) =>{
 
