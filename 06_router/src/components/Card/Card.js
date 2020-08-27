@@ -5,6 +5,7 @@ import CardCheckbox from './CardCheckbox'
 import { withRouter } from 'react-router-dom'
 
 import { ActionsCards } from '../../App'
+import { CardsContext } from '../../pages/TasksPage'
 
 const Card = (props) => {
   const id = props.id
@@ -14,7 +15,7 @@ const Card = (props) => {
     if (isEdited) {
       inputRef.current.setAttribute('disabled', '')
       button.innerText = 'Редактировать'
-      save(inputRef.current.value)
+      save(id, inputRef.current.value)
     } else {
       inputRef.current.removeAttribute('disabled')
       button.innerText = 'Сохранить'
@@ -25,7 +26,7 @@ const Card = (props) => {
   const inputClass = (value) => { return value ? 'border-danger' : '' }
 
   return (
-    <ActionsCards.Consumer>
+    <CardsContext.Consumer>
       {
         ({ cardsObject, onDelete, onSave }) => {
           return (<div className="input-group mb-3">
@@ -68,7 +69,7 @@ const Card = (props) => {
           </div>)
         }
       }
-    </ActionsCards.Consumer>
+    </CardsContext.Consumer>
   )
 }
 

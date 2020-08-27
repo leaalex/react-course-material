@@ -1,15 +1,15 @@
 import React from 'react'
-import { ActionsCards } from '../../App'
+import { CardsContext } from '../../pages/TasksPage'
 
 const CardDetails = (props) => {
   console.log(props)
 
   return (
-    <ActionsCards.Consumer>
+    <CardsContext.Consumer>
       {
         ({ cardsObject }) => (<><h2>CardDetails</h2> <h3>{cardsObject[props.match.params.taskid].title}</h3></>)
       }
-    </ActionsCards.Consumer>
+    </CardsContext.Consumer>
   )
 }
 

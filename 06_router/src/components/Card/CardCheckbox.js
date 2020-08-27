@@ -1,25 +1,23 @@
-import React from "react";
-import {ActionsCards} from "../../App";
+import React from 'react'
+import { CardsContext } from '../../pages/TasksPage'
 
-const CardCheckbox = ({id}) =>{
-
-   const getClass = (value) => value ? 'border-danger bg-danger' : ''
+const CardCheckbox = ({ id }) => {
+  const getClass = (value) => value ? 'border-danger bg-danger' : ''
 
   return (
-    <ActionsCards.Consumer>
+    <CardsContext.Consumer>
       {
-        ({cardsObject, changeTaskCompleted}) => {
-          const {completed, deleted } = cardsObject[id]
-          console.log(deleted, getClass(deleted));
+        ({ cardsObject, onTaskCompleted }) => {
+          const { completed, deleted } = cardsObject[id]
+          console.log(deleted, getClass(deleted))
           return (<div className={`input-group-text ${getClass(deleted)}`}>
-            <input type="checkbox" onChange={() => changeTaskCompleted(id)} defaultChecked={completed} />
+            <input type="checkbox" onChange={() => onTaskCompleted(id)} defaultChecked={completed} />
           </div>)
         }
       }
-    </ActionsCards.Consumer>
+    </CardsContext.Consumer>
 
   )
-
 }
 
 export default CardCheckbox
