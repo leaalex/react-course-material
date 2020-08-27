@@ -1,32 +1,38 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import AddTask from '../components/AddTask'
-import Card from '../components/Card/Card'
+import CardList from '../components/Card/CardList'
 import CardDetails from '../components/Card/CardDetails'
 
 
 import {genId} from "../utils";
+import Card from "../components/Card/Card";
 // Context API
 export const CardsContext = React.createContext({})
 
 class TasksPage extends React.Component {
-  constructor (props) {
+  constructor () {
     super()
     this.state = {
       cards: [
-        { id: 'id_474a890', title: '__Прочитать про React', desc: 'Описание задачи', priority: 1, date: '', completed: false, deleted: false },
-        { id: 'id_474a8b0', title: '__Сходить за хлебом', desc: 'Описание задачи', priority: 1, date: '', completed: false, deleted: false },
-        { id: 'id_474a89e', title: '__Помыть машину', desc: 'Описание задачи', priority: 1, date: '', completed: false, deleted: false }
+        { id: 'id_474a890', title: 'Прочитать про React', desc: 'Описание задачи', priority: 3, date: '', completed: false, deleted: false },
+        { id: 'id_474a8b0', title: 'Сходить за хлебом', desc: 'Описание задачи', priority: 1, date: '', completed: false, deleted: false },
+        { id: 'id_474a89e', title: 'Помыть машину', desc: 'Описание задачи', priority: 1, date: '', completed: false, deleted: false }
       ],
       isShowDeleteTasks: false,
-      color: 'secondary'
+      color: 'secondary',
+      isOneWindow: true
     }
   }
 
   buttonClick = () =>{
     this.setState({
       isShowDeleteTasks: !this.state.isShowDeleteTasks
+    })
+  }
+  onOneWindow = () =>{
+    this.setState({
+      isOneWindow: !this.state.isOneWindow
     })
   }
 
@@ -67,21 +73,20 @@ class TasksPage extends React.Component {
 
   addTask = () => {
     this.setState({
-      cards: [{id: genId(), title: this.input, completed:false, deleted: false}, ...this.state.cards,]
+      cards: [{id: genId(), title: this.input,desc: 'Описание задачи', priority: 1, date: '', completed:false, deleted: false}, ...this.state.cards,]
     })
   }
 
   render () {
-    const cards = this.state.cards
-      .filter(card => this.state.isShowDeleteTasks || !card.deleted)
+    const cards = this.state.cards.filter(card => this.state.isShowDeleteTasks || !card.deleted)
       .map(card => <Card id={card.id} key={card.id}/>)
-
     const cardsObject = this.state.cards.reduce((object, card) => {
       const cardTemp = {}
       cardTemp[card.id] = card
       return { ...object, ...cardTemp }
     }, {})
     const CardsContextObject = {
+      cards,
       cardsObject,
       onDelete: this.onDelete,
       onSave: this.onSave,
@@ -94,20 +99,9 @@ class TasksPage extends React.Component {
     return (
       <React.Fragment>
         <CardsContext.Provider value={CardsContextObject}>
-          <button className='btn btn-primary' style={{ float: 'right' }} onClick={() => this.props.history.push('/')}>home
-          </button>
-          <h1>TasksPage</h1>
-          <button className='btn btn-primary' style={{ float: 'right' }} onClick={this.buttonClick}>
-            {this.state.isShowDeleteTasks ? 'Скрыть удаленные задачи' : 'Показать удаленные задачи'}
-          </button>
-          <h3>Список задач</h3>
-          <div className={'mt-4'}>
-            <AddTask/>
-            <div>
-              {cards}
-            </div>
-          </div>
-          <Route path='/tasks/:taskid' component={CardDetails}/>
+          <button className='btn btn-secondary' style={{ float: 'right' }} onClick={this.onOneWindow}>onOneWindow</button>
+          <Route path='/tasks/' exact={this.state.isOneWindow} render={(props)=> <CardList isShowDeleteTasks={this.state.isShowDeleteTasks} buttonClick={this.buttonClick} {...props}/>}/>
+          <Route path='/tasks/:taskid'  component={CardDetails}/>
         </CardsContext.Provider>
       </React.Fragment>
     )

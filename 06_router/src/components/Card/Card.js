@@ -4,7 +4,6 @@ import CardCheckbox from './CardCheckbox'
 
 import { withRouter } from 'react-router-dom'
 
-import { ActionsCards } from '../../App'
 import { CardsContext } from '../../pages/TasksPage'
 
 const Card = (props) => {
@@ -41,9 +40,9 @@ const Card = (props) => {
             />
             <div className="input-group-append">
               <button
-                className="btn btn-outline-success"
+                className={`btn ${id === props.match.params.taskid ? 'btn-success' : 'btn-outline-success'}`}
                 type="button"
-                onClick={() => props.history.push(`/tasks/${id}`)}
+                onClick={() => (id === props.match.params.taskid) ? props.history.push('/tasks') : props.history.push(`/tasks/${id}`)}
               >
                 Инфо
               </button>

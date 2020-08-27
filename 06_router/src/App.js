@@ -22,9 +22,6 @@ const App = () => {
         <li className="nav-item">
           <NavLink className="nav-link" activeStyle={{ color: 'gold' }} to="/about">About</NavLink>
         </li>
-        <li className="nav-item">
-          <button className='btn btn-secondary' style={{ float: 'right' }} onClick={() => console.log(this.state.cards, this.cardsObjct)}>log</button>
-        </li>
       </ul>
       <Switch>
         <Route path='/' exact component={HomePage}/>
