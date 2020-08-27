@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HomePage = (props) => {
-  return <h1>{ props.title }</h1>
+const HomePage = () => {
+  return <h1>React Task Manager</h1>
 }
 export default HomePage

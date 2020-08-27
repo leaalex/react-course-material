@@ -27,7 +27,7 @@ const App = () => {
         </li>
       </ul>
       <Switch>
-        <Route path='/' exact render={() => <HomePage title={ this.props.globalTitle } />}/>
+        <Route path='/' exact component={HomePage}/>
         <Route path='/about' component={AboutPage}/>
         <Route path='/tasks/:taskid' component={TasksPage}/>
         <Route path='/tasks/' component={TasksPage}/>

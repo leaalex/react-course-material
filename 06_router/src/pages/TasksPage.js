@@ -1,9 +1,11 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+
 import AddTask from '../components/AddTask'
-// import {ActionsCards} from "../App";
 import Card from '../components/Card/Card'
-import { Route, withRouter } from 'react-router-dom'
 import CardDetails from '../components/Card/CardDetails'
+
+
 import {genId} from "../utils";
 // Context API
 export const CardsContext = React.createContext({})
@@ -112,4 +114,4 @@ class TasksPage extends React.Component {
   }
 }
 
-export default withRouter(TasksPage)
+export default TasksPage
