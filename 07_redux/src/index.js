@@ -4,9 +4,18 @@ import './index.css'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 
+// Redux
+import { createStore } from 'redux'
+import rootReducer from './redux/rootReducer'
+import { Provider } from 'react-redux'
+
+const store = createStore(rootReducer)
+
 const app = (
   <BrowserRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 )
 
