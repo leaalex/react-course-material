@@ -1,15 +1,5 @@
-const initialState = {
-  counter: 10
-}
+import { combineReducers } from 'redux'
+import counterReducer from './reducers/counterReducer'
+import taskReducer from './reducers/taskReducer'
 
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD' :
-      return { counter: state.counter + 1 }
-    case 'SUB' :
-      return { counter: state.counter - 1 }
-  }
-  return state
-}
-
-export default rootReducer
+export default combineReducers({ counterReducer, taskReducer })

@@ -1,7 +1,12 @@
-import React from "react";
+import React from 'react'
+import { connect } from 'react-redux'
 
-const AboutPage = () => {
-  return <h1>AboutPage</h1>
+const AboutPage = (props) => {
+  return <h1>AboutPage <small>{props.counter}</small></h1>
 }
 
-export default AboutPage
+function mapStateToProps (state) {
+  return { counter: state.counter }
+}
+
+export default connect(mapStateToProps)(AboutPage)

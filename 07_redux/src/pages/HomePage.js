@@ -38,13 +38,19 @@ import { connect } from 'react-redux'
 const HomePage = (props) => {
   return (
     <React.Fragment>
-      <h1>React Task Manager with Redux </h1>
+      <h1>{props.title}</h1>
       <div className="card">
         <div className="card-body text-center">
           <h1 className={'display-4'}>{props.counter}</h1>
           <div className="btn-group" role="group" aria-label="Basic example">
             <button type="button" className="btn btn-success" onClick={props.addCounter}>+1</button>
             <button type="button" className="btn btn-danger" onClick={props.subCounter}>-1</button>
+          </div>
+          <br/>
+          <div className="btn-group" role="group" aria-label="Basic example">
+            <button type="button" className="btn btn-success" onClick={() => props.addCounterToNumber()}>+</button>
+            <input type="text"/>
+            <button type="button" className="btn btn-danger" onClick={() => props.subCounterToNumber()}>-</button>
           </div>
         </div>
       </div>
@@ -53,14 +59,16 @@ const HomePage = (props) => {
 }
 
 // redux
-function mapStateToProps (state) {
-  return { counter: state.counter }
+function mapStateToProps (store) {
+  return { counter: store.counterReducer.counter }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     addCounter: () => dispatch({ type: 'ADD' }),
-    subCounter: () => dispatch({ type: 'SUB' })
+    subCounter: () => dispatch({ type: 'SUB' }),
+    addCounterToNumber: (value) => dispatch({ type: 'ADD_NUMBER', value }),
+    subCounterToNumber: (value) => dispatch({ type: 'SUB_NUMBER', value })
   }
 }
 

@@ -1,7 +1,8 @@
 import React from 'react'
 import { CardsContext } from '../../pages/TasksPage'
+import { connect } from 'react-redux'
 
-const CardCheckbox = ({ id }) => {
+const CardCheckbox = ({ id, counter }) => {
   const getClass = (value) => value ? 'border-danger bg-danger' : ''
 
   return (
