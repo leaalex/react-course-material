@@ -7,6 +7,8 @@ import CardDetails from '../components/Card/CardDetails'
 
 import {genId} from "../utils";
 import Card from "../components/Card/Card";
+import {add, sub} from "../redux/actions/actionList";
+import {connect} from "react-redux";
 // Context API
 export const CardsContext = React.createContext({})
 
@@ -78,16 +80,8 @@ class TasksPage extends React.Component {
   }
 
   render () {
-    const cards = this.state.cards.filter(card => this.state.isShowDeleteTasks || !card.deleted)
-      .map(card => <Card id={card.id} key={card.id}/>)
-    const cardsObject = this.state.cards.reduce((object, card) => {
-      const cardTemp = {}
-      cardTemp[card.id] = card
-      return { ...object, ...cardTemp }
-    }, {})
     const CardsContextObject = {
-      cards,
-      cardsObject,
+      cardsObject: this.props.cardObjectList,
       onDelete: this.onDelete,
       onSave: this.onSave,
       onTaskCompleted: this.onTaskCompleted,
@@ -103,9 +97,23 @@ class TasksPage extends React.Component {
           <Route path='/tasks/' exact={this.state.isOneWindow} render={(props)=> <CardList isShowDeleteTasks={this.state.isShowDeleteTasks} buttonClick={this.buttonClick} {...props}/>}/>
           <Route path='/tasks/:taskid'  component={CardDetails}/>
         </CardsContext.Provider>
+
       </React.Fragment>
     )
   }
 }
 
-export default TasksPage
+function mapStateToProps (store) {
+  return {
+    cards: store.taskReducer.cards,
+    cardIdList: store.taskReducer.cardIdList,
+    cardObjectList: store.taskReducer.cardObjectList,
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TasksPage)
