@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { add, sub, addTimeout } from '../redux/actions/actionList'
 
 // class HomePage extends React.Component {
 //   state = {counter: 0}
@@ -65,8 +66,9 @@ function mapStateToProps (store) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    addCounter: () => dispatch({ type: 'ADD' }),
-    subCounter: () => dispatch({ type: 'SUB' }),
+    // addCounter: () => dispatch(add()),
+    addCounter: () => dispatch(addTimeout()),
+    subCounter: () => dispatch(sub()),
     addCounterToNumber: (value) => dispatch({ type: 'ADD_NUMBER', value }),
     subCounterToNumber: (value) => dispatch({ type: 'SUB_NUMBER', value })
   }
