@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { add, sub, addTimeout } from '../redux/actions/actionList'
+import { add, sub, addTaskAsync } from '../redux/actions/actionList'
 
 // class HomePage extends React.Component {
 //   state = {counter: 0}
@@ -54,23 +54,30 @@ const HomePage = (props) => {
             <button type="button" className="btn btn-danger" onClick={() => props.subCounterToNumber()}>-</button>
           </div>
         </div>
+        <button type="button" className="btn btn-danger" onClick={props.addTaskAsync}>addTaskAsync</button>
+        <button type="button" className="btn btn-danger" onClick={() => console.log(props.taskList)}>log</button>
       </div>
+      {
+        props.taskList.map(task => <div key={task.id}>{task.userId} {task.title}</div>)
+      }
     </React.Fragment>
   )
 }
 
 // redux
 function mapStateToProps (store) {
-  return { counter: store.counterReducer.counter }
+  return {
+    counter: store.counterReducer.counter,
+    taskList: store.taskReducer.taskList
+  }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     // addCounter: () => dispatch(add()),
-    addCounter: () => dispatch(addTimeout()),
+    addCounter: () => dispatch(add()),
     subCounter: () => dispatch(sub()),
-    addCounterToNumber: (value) => dispatch({ type: 'ADD_NUMBER', value }),
-    subCounterToNumber: (value) => dispatch({ type: 'SUB_NUMBER', value })
+    addTaskAsync: () => dispatch(addTaskAsync())
   }
 }
 
